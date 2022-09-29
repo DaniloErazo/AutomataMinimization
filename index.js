@@ -1,11 +1,19 @@
 function generateTable() {
     // creates a <table> element and a <tbody> element
+    if(document.getElementById("datatable")===null){
+
+    }else {
+        document.getElementById("datatable").outerHTML = "";
+    }
     var filasI = document.getElementById("states").value;
     var columnasI = document.getElementById("inputs").value;
-    let filas = (filasI*1) + 1 
-    let columnas = (columnasI*1) +2
-    console.log(filas, columnas)
+    var filas2 = filasI.split(", ")
+    var columnas2 = columnasI.split(", ")
+    let filas = filas2.length + 1 
+    let columnas = columnas2.length +2
+    console.log(filas2)
     const tbl = document.createElement("table");
+    tbl.setAttribute('id', 'datatable')
     const tblBody = document.createElement("tbody");
   
     // creating all cells
@@ -18,10 +26,16 @@ function generateTable() {
         // node the contents of the <td>, and put the <td> at
         // the end of the table row
         const cell = document.createElement("td");
-        if(j===(0) && i === 0){
+        if(j===(0)){
+            if(i === 0){
             const cellText = document.createTextNode(`Estados/ Entradas`)
             cell.appendChild(cellText);
-        }else if (j===(columnas-1) && i===0){
+            }else {
+            const cellText = document.createTextNode(`${filas2.shift()}`)
+            cell.appendChild(cellText);
+            }
+            
+        }else if  (j===(columnas-1) && i===0){
             const cellText = document.createTextNode(`Salidas`)
             cell.appendChild(cellText);
         }else {
