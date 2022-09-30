@@ -1,17 +1,36 @@
 function generateTable() {
-    // creates a <table> element and a <tbody> element
+
+    //get type of machine
+    var radios = document.getElementsByName('choice');
+    var val= "";
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            val = radios[i].value; 
+            break;
+        }
+    }
+
+    //erase table if already exists 
     if(document.getElementById("datatable")===null){
 
     }else {
         document.getElementById("datatable").outerHTML = "";
     }
+
+    //get and calculate number of rows and columns
     var filasI = document.getElementById("states").value;
     var columnasI = document.getElementById("inputs").value;
     var filas2 = filasI.split(", ")
     var columnas2 = columnasI.split(", ")
     let filas = filas2.length + 1 
-    let columnas = columnas2.length +2
-    console.log(filas2)
+    let columnas
+    if(val === "Moore"){
+        columnas = columnas2.length +2
+    }else {
+        columnas = columnas2.length + 1
+    }
+
+     // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
     tbl.setAttribute('id', 'datatable')
     const tblBody = document.createElement("tbody");
@@ -35,12 +54,20 @@ function generateTable() {
             cell.appendChild(cellText);
             }
             
-        }else if  (j===(columnas-1) && i===0){
-            const cellText = document.createTextNode(`Salidas`)
-            cell.appendChild(cellText);
         }else {
-            const cellText = document.createElement("input");
-            cell.appendChild(cellText);
+            if(i===0){
+                if(j===(columnas-1) && val === "Moore"){
+                    const cellText = document.createTextNode(`Salidas`)
+                    cell.appendChild(cellText);
+                }else{
+                    const cellText = document.createTextNode(`${columnas2.shift()}`)
+                    cell.appendChild(cellText); 
+                }
+            }else{
+                const cellText = document.createElement("input");
+                cell.appendChild(cellText);
+            }
+            
         }
         
         row.appendChild(cell);
