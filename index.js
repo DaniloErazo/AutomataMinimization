@@ -71,16 +71,29 @@ function generateTable() {
         }
         
         row.appendChild(cell);
-      
     }
-  
       // add the row to the end of the table body
-      tblBody.appendChild(row);
+        tblBody.appendChild(row);
     }
-  
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
     // appends <table> into <body>
     document.body.appendChild(tbl);
     tbl.setAttribute("border", "1")
-  }
+}
+
+function showTableData() {
+    var myTab = document.getElementById('datatable');
+
+    // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
+    for (i = 1; i < myTab.rows.length; i++) {
+
+        // GET THE CELLS COLLECTION OF THE CURRENT ROW.
+        var objCells = myTab.rows.item(i).cells;
+
+        // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
+        for (var j = 1; j < objCells.length; j++) {
+            console.log(objCells.item(j).getElementsByTagName('input')[0].value) ;
+        }
+    }
+}
