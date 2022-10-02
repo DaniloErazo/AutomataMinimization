@@ -96,22 +96,22 @@ function showTableData() {
         var nombreEstado = objCells.item(0).innerHTML;
         //create state
         var estado = new MooreState(nombreEstado)
-        var salida;
         // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
         for (var j = 1; j < objCells.length; j++) {
             //add states accesible from state
             if(j===objCells.length-1){
-                console.log("entró para"+ nombreEstado)
                 estado.salida = objCells.item(j).getElementsByTagName('input')[0].value
             }else{
                 estado.estados.push(objCells.item(j).getElementsByTagName('input')[0].value) ;
             }
         }
-
         //add states to automata
         automataStates.estados.push(estado)
         
+        
     }
-    console.log(automataStates)
+    console.log(automataStates.calculateAccesibles());
+    console.log(automataStates.connected);
+
 
 }
