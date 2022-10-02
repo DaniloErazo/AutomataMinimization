@@ -83,17 +83,35 @@ function generateTable() {
 }
 
 function showTableData() {
+    var automataStates = new MooreAutomata();
     var myTab = document.getElementById('datatable');
-
+    //alternative for getting data in cell
+    //console.log(myTab.rows[1].cells[1].getElementsByTagName('input')[0].value);
+    
     // LOOP THROUGH EACH ROW OF THE TABLE AFTER HEADER.
     for (i = 1; i < myTab.rows.length; i++) {
-
         // GET THE CELLS COLLECTION OF THE CURRENT ROW.
         var objCells = myTab.rows.item(i).cells;
-
+        //state name
+        var nombreEstado = objCells.item(0).innerHTML;
+        //create state
+        var estado = new MooreState(nombreEstado)
+        var salida;
         // LOOP THROUGH EACH CELL OF THE CURENT ROW TO READ CELL VALUES.
         for (var j = 1; j < objCells.length; j++) {
-            console.log(objCells.item(j).getElementsByTagName('input')[0].value) ;
+            //add states accesible from state
+            if(j===objCells.length-1){
+                console.log("entró para"+ nombreEstado)
+                estado.salida = objCells.item(j).getElementsByTagName('input')[0].value
+            }else{
+                estado.estados.push(objCells.item(j).getElementsByTagName('input')[0].value) ;
+            }
         }
+
+        //add states to automata
+        automataStates.estados.push(estado)
+        
     }
+    console.log(automataStates)
+
 }
