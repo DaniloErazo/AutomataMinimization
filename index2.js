@@ -2,6 +2,8 @@ let allStates = [];
 let globalRows = 0;
 let dataMachine = [];
 let jointMachine = [];
+let headersForTable = [];
+
 
 function generateTable(){
   //Get Data from the amount and name of both the states and the input alphabet of the machine as a single string
@@ -10,12 +12,13 @@ function generateTable(){
   //Split the String into multiple data
   var rowsHeaders = tableRows.split(",")
   var columnsHeaders = tableColumns.split(",")
+  headersForTable = columnsHeaders;
   allStates =  rowsHeaders;
 
 
   //Get headers for table columns
   let headItems = [];
-  headItems.push(`<th scope=\"col\">DATOS</th>`);
+  headItems.push(`<th scope=\"col\">Estados/Entradas</th>`);
   columnsHeaders.forEach(key => {
     headItems.push(`<th scope=\"col\">${key}</th>`);
   });
@@ -247,13 +250,64 @@ function verifyJoint(){
         console.log(element);
       }
 
-
+      for (let i = 0; i < newJointMachine.length; i++) {
+        const element = newJointMachine[i];
+        jointMachine.push(element);
+      }
     }
+    createJointTable();
   }
 
 }
 
+function createJointTable(){
+  //Get headers for table columns
+  let headItems = [];
+  headItems.push(`<th scope=\"col\">Estados/Entradas</th>`);
+  headersForTable.forEach(key => {
+    headItems.push(`<th scope=\"col\">${key}</th>`);
+  });
 
+  //Fill headers for table columns
+  let tableM = document.querySelector(".table2");
+  const tr = document.getElementById("tr2");
+
+  if(tableM){
+    tr.innerHTML = headItems.join(" ");
+  }
+
+  //Fill rows
+  let dataS = "";
+  for (let i = 0; i < jointMachine.length; i++) {  
+    let j = 0;
+    while(j<jointMachine[i].length){
+      const elementj = jointMachine[i][j].name;
+      if(j==0){
+        dataS+=`<td>${elementj}</td>`;
+        j++;
+      }else{
+        let textS = jointMachine[i][j].name+" | "+jointMachine[i][j+1].name;
+        dataS+=`<td>${textS}</td>`;
+        j+=2;
+      }
+    }
+    let template = `<tr>${dataS}</tr>`;
+    let tableX = document.querySelector('.table2');
+
+    tableX.innerHTML += template;
+    dataS = "";
+  }
+  console.log(dataS);
+
+  /*dataS+=`<td>${formParent[1].value}</td>`
+  
+
+  let template = `<tr>${dataS}</tr>`;
+  let table = document.querySelector('table');
+
+  table.innerHTML += template;
+  dataMachine.push(singleStateData);*/
+}
 
 
 
