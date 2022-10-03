@@ -17,7 +17,7 @@
         <label for="states">Estados del automata:</label>
         <input type="text" id="states" required minlength="1" placeholder = "i.e. A, B, C" maxlength="12" size="10"> <br>
         <label for="inputs">Alfabeto del automata:</label>
-        <input type="text" id="inputs"  required minlength="1" placeholder = "i.e. 1, 0" maxlength="4" size="10"> <br>
+        <input type="text" id="inputs"  required minlength="1" placeholder = "i.e. 1, 0" maxlength="12" size="10"> <br>
         <label for="choice">Seleccione el tipo de autómata: </label> <br> 
         <input type="radio" name="choice" value="Mealy"> Mealy
         <input type="radio" name="choice" value="Moore"> Moore <br> <br>
@@ -25,5 +25,6 @@
         <input type="button" value="Minimizar" onclick="showTableData()" /> 
     </main>
 	<script src="index.js"></script>
+  <script src="automata_moore.js"></script>
   </body>
 </html>
