@@ -55,18 +55,31 @@ class MooreAutomata{
         var automata = this.connected;
         var groups = this.getGroups();
         var partition = []
-        console.log(automata)
         for (let i = 0; i < groups.length; i++) {
             var group = []
             for (let j = 0; j < automata.length; j++) {
                 if(automata[j].grupo===groups[i]){
                     group.push(automata[j])
                 }
-                
             }
             partition.push(group)
         }
         return partition;
+    }
+
+    showPartition(){
+        var partition = this.getPartition();
+        var partitionString = []
+        for (let i = 0; i < partition.length; i++) {
+            var grupo = partition[i]
+            var grupoString  = []
+            for (let j = 0; j < grupo.length; j++) {
+                grupoString.push(grupo[j].nombre)
+            }
+            partitionString.push("[" + grupoString.toString() + "]")
+            
+        }
+        return partitionString
     }
 
     setGroups(){

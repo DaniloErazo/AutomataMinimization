@@ -1,14 +1,5 @@
 function generateTable() {
 
-    //get type of machine
-    var radios = document.getElementsByName('choice');
-    var val= "";
-    for (var i = 0, length = radios.length; i < length; i++) {
-        if (radios[i].checked) {
-            val = radios[i].value; 
-            break;
-        }
-    }
 
     //erase table if already exists 
     if(document.getElementById("datatable")===null){
@@ -23,12 +14,8 @@ function generateTable() {
     var filas2 = filasI.split(", ")
     var columnas2 = columnasI.split(", ")
     let filas = filas2.length + 1 
-    let columnas
-    if(val === "Moore"){
-        columnas = columnas2.length +2
-    }else {
-        columnas = columnas2.length + 1
-    }
+    let columnas = columnas2.length +2
+
 
      // creates a <table> element and a <tbody> element
     const tbl = document.createElement("table");
@@ -56,7 +43,7 @@ function generateTable() {
             
         }else {
             if(i===0){
-                if(j===(columnas-1) && val === "Moore"){
+                if(j===(columnas-1) ){
                     const cellText = document.createTextNode(`Salidas`)
                     cell.appendChild(cellText);
                 }else{
@@ -112,7 +99,9 @@ function showTableData() {
     }
     automataStates.calculateAccesibles();
     //console.log(automataStates.getGroups());
-    console.log(automataStates.getPartition());
+    console.log("[" + automataStates.showPartition().toString() + "]");
+    const newtext = document.createTextNode("P1 = [" + automataStates.showPartition().toString() + "]");
+    document.body.appendChild(newtext);
 
 
 }
