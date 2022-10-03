@@ -65,7 +65,9 @@ function generateTable() {
     // put the <tbody> in the <table>
     tbl.appendChild(tblBody);
     // appends <table> into <body>
-    document.body.appendChild(tbl);
+    
+    document.getElementById("data").appendChild(tbl)
+    //document.body.appendChild(tbl);
     tbl.setAttribute("border", "1")
 }
 
@@ -101,7 +103,7 @@ function showTableData() {
     //console.log(automataStates.getGroups());
     console.log("[" + automataStates.showPartition().toString() + "]");
     const newtext = document.createTextNode("P1 = [" + automataStates.showPartition().toString() + "]");
-    document.body.appendChild(newtext);
+    document.getElementById("data").appendChild(newtext);
 
 
 }

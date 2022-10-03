@@ -5,20 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Automata Minimization </title>
-  <!-- <link rel="stylesheet" href="./style.css"> -->
+    <link rel="stylesheet" href="./stylec.css"> 
   </head>
   <body>
     <main>
-        <h1>Automaton Minimizer</h1> 
-
-        <div>
-        <label for="states">Estados del automata:</label>
-        <input type="text" id="states" required minlength="1" placeholder = "i.e. A, B, C" maxlength="12" size="10"> <br>
-        <label for="inputs">Alfabeto del automata:</label>
-        <input type="text" id="inputs"  required minlength="1" placeholder = "i.e. 1, 0" maxlength="12" size="10"> <br>
-        <input type="button" value="Generar tabla de datos" onclick="generateTable()" />
-        <input type="button" value="Minimizar" onclick="showTableData()" /> 
-        <div>
+        <div class="center-border" id="data">
+        <h1>Automaton Minimizer: Moore</h1> 
+          <div class="center-border">
+          <label for="states">Estados del automata:</label>
+          <input type="text" id="states" required minlength="1" placeholder = "i.e. A, B, C" maxlength="12" size="10"> <br> <br>
+          <label for="inputs">Alfabeto del automata:</label>
+          <input type="text" id="inputs"  required minlength="1" placeholder = "i.e. 1, 0" maxlength="12" size="10"> <br><br>
+          <input type="button" value="Generar tabla de datos" onclick="generateTable()" /> 
+          <input type="button" value="Minimizar" onclick="showTableData()" /> 
+          
+          </div>
+        </div>
+        
     </main>
 	<script src="index.js"></script>
   <script src="automata_moore.js"></script>
