@@ -3,6 +3,7 @@ let globalRows = 0;
 let dataMachine = [];
 let jointMachine = [];
 let headersForTable = [];
+let partitions = [];
 
 
 function generateTable(){
@@ -165,6 +166,7 @@ function addState(){
 
 function reduceMachine(){
   verifyJoint();
+  reduceM();
 }
 
 
@@ -190,7 +192,10 @@ function verifyJoint(){
   
 
   if(isDone){
-    reduceM();
+    for (let index = 0; index < dataMachine.length; index++) {
+      const element = dataMachine[index];
+      jointMachine.push(element);
+    }
   }else{
     //Iterate for connectivity
     let toCheck= [];
@@ -201,6 +206,16 @@ function verifyJoint(){
       toCheck.push(element);
     }
 
+    /*let iterative = 0;
+    while (iterative<acc.length) {
+      console.log(acc.length);
+      acc = getAccesibleSV2(acc,acc[iterative]);
+      console.log(acc.length);
+      iterative++;
+    }*/
+
+
+    
     //Iterate
     let iterationsJoint = 0;
     while(!isDone && toCheck.length>0){
@@ -215,19 +230,38 @@ function verifyJoint(){
       toCheck.shift();
       //verify if it is joint again
       isDone = IsInList(allStates, acc);
-      //Add new acc to toCheck
-    }
-    if(!isDone){
-      let newJointMachine = [];
+
       /*for (let index = 0; index < acc.length; index++) {
         const element = acc[index];
-        console.log(element);
-        
+        console.log(index+" :ASDSADSADADS: "+element);
+      }
+
+      for (let i = 0; i < acc.length; i++) {
+        const accElement = acc[i];
+        let found = false;
+        for (let j = 0; j < checked.length && !found; j++) {
+          const checkedElement = checked[j];
+          if(accElement.name == checkedElement.name){
+            found = true;
+          }
+        }
+        console.log(accElement);
       }*/
+      
+      //Add new acc to toCheck
+    }
+
+
+
+
+
+
+    //Create a second table in case the machine wasnt joint
+    if(!isDone){
+      let newJointMachine = [];
 
       for (let i = 0; i < acc.length; i++) {
         let machineState = searchState(acc[i].name,dataMachine);
-        console.log(machineState);
 
         let newMachineState = []
         for (let j = 0; j < machineState.length; j++) {
@@ -244,10 +278,8 @@ function verifyJoint(){
         newJointMachine.push(newMachineState);
       }
       
-      console.log("NEW JOINT MACHINE");
       for (let a = 0; a < newJointMachine.length; a++) {
         const element = newJointMachine[a];
-        console.log(element);
       }
 
       for (let i = 0; i < newJointMachine.length; i++) {
@@ -297,16 +329,6 @@ function createJointTable(){
     tableX.innerHTML += template;
     dataS = "";
   }
-  console.log(dataS);
-
-  /*dataS+=`<td>${formParent[1].value}</td>`
-  
-
-  let template = `<tr>${dataS}</tr>`;
-  let table = document.querySelector('table');
-
-  table.innerHTML += template;
-  dataMachine.push(singleStateData);*/
 }
 
 
@@ -349,6 +371,27 @@ function getAccesibleS(startingAcc,initialState){
 }
 
 
+function getAccesibleSV2(startingAcc,initialState){
+  let acc = startingAcc;
+  for (let index = 0; index < initialState.length; index++) {
+    const e = initialState[index];
+    if(e.type!="response"){
+      let isIn = false;
+      for (let index = 0; index < acc.length && !isIn; index++) {
+        const element = acc[index];
+        if(element.name==e.name){
+          isIn = true;
+        }
+      }
+      if(!isIn){
+        acc.push(new StateData(e.name, "e.type"));
+      }
+    }
+  }
+  return acc;
+}
+
+
 
 
 
@@ -366,7 +409,6 @@ function IsInList(allItems, someItems){
     }
     
   }
-  console.log("coincidencias: "+isIn)
   if (isIn==allItems.length) {
     return true;
   }else{
@@ -376,39 +418,38 @@ function IsInList(allItems, someItems){
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 function reduceM(){
+  console.log("REDUCING..."); 
 
+  let partition0 = [];
+  let maxEqualOutcomes = (headersForTable.length);
+  console.log(maxEqualOutcomes);
+
+  for (let i = 0; i < jointMachine.length; i++) {
+    
+    let equalOutcomes = 0;
+    //declare 2 states to compare
+    const statei = jointMachine[i]; 
+
+    for (let j = 1; j < jointMachine.length; j++) {
+      const statej = jointMachine[j];
+      console.log(statei[0].name);
+      console.log(statej[0].name);
+      for (let k = 0; k < statei.length; k++) {
+        const elementik = statei[k];
+        const elementjk = statej[k];
+        if(elementik.type=="response" && elementjk.type=="response" && elementik.name==elementjk.name){
+          equalOutcomes++;
+        }
+      }
+      if(equalOutcomes==maxEqualOutcomes){
+        console.log(statei[0].name + " SAME PARTITION AS: " + statej[0].name);
+        equalOutcomes = 0;
+      }else{
+        console.log(statei[0].name + " NOT SAME PARTITION AS: " + statej[0].name);
+      }
+    }
+  }
 }
 
 class StateData{
