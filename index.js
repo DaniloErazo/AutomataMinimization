@@ -110,8 +110,9 @@ function showTableData() {
         
         
     }
-    console.log(automataStates.calculateAccesibles());
-    console.log(automataStates.connected);
+    automataStates.calculateAccesibles();
+    //console.log(automataStates.getGroups());
+    console.log(automataStates.getPartition());
 
 
 }

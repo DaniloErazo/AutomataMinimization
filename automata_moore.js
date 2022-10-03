@@ -15,7 +15,6 @@ class MooreState {
 class MooreAutomata{
     constructor(){
         this.estados = [];
-        this.estadosSalidas = new Map();
         this.accesibles = []
         this.connected = []
     }
@@ -40,7 +39,6 @@ class MooreAutomata{
             }
             control = accesibles.length;
         }
-
         this.accesibles = Array.from(new Set(accesibles));
         this.setConnected()
         this.setGroups()
@@ -53,11 +51,22 @@ class MooreAutomata{
         }
     }
 
-    setPartition(){
+    getPartition(){
+        var automata = this.connected;
+        var groups = this.getGroups();
         var partition = []
-
-
-
+        console.log(automata)
+        for (let i = 0; i < groups.length; i++) {
+            var group = []
+            for (let j = 0; j < automata.length; j++) {
+                if(automata[j].grupo===groups[i]){
+                    group.push(automata[j])
+                }
+                
+            }
+            partition.push(group)
+        }
+        return partition;
     }
 
     setGroups(){
@@ -70,6 +79,17 @@ class MooreAutomata{
             }
             estado.grupo = grupo
         }
+    }
+
+    getGroups(){
+        var groups = []
+        for (let i = 0; i < this.connected.length; i++) {
+            var estado = this.connected[i];
+            var group= estado.grupo;
+            groups.push(group)
+        }
+
+        return Array.from(new Set(groups))
     }
 
     getState(nombre){
