@@ -46,18 +46,22 @@ class MooreAutomata{
     }
 
     setConnected(){
+        //determines  the states for the connected automata
         for (let index = 0; index < this.accesibles.length; index++) {
             this.connected.push(this.getState(this.accesibles[index]))
         }
     }
 
     getPartition(){
+        //builds the first partition
         var automata = this.connected;
         var groups = this.getGroups();
         var partition = []
         for (let i = 0; i < groups.length; i++) {
+            //first loop takes the group
             var group = []
             for (let j = 0; j < automata.length; j++) {
+                //second loop adds state to its group
                 if(automata[j].grupo===groups[i]){
                     group.push(automata[j])
                 }
@@ -68,6 +72,7 @@ class MooreAutomata{
     }
 
     showPartition(){
+        //generates a string with the first partition
         var partition = this.getPartition();
         var partitionString = []
         for (let i = 0; i < partition.length; i++) {
@@ -83,6 +88,7 @@ class MooreAutomata{
     }
 
     setGroups(){
+        //calculates the group of inputs in order to calculate first partition
         for (let i = 0; i < this.connected.length; i++) {
             var estado = this.connected[i];
             var estadosSalida= estado.estados;
@@ -95,6 +101,7 @@ class MooreAutomata{
     }
 
     getGroups(){
+        //calculates how many and which are the groups for making the first partition
         var groups = []
         for (let i = 0; i < this.connected.length; i++) {
             var estado = this.connected[i];
