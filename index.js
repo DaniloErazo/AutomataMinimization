@@ -8,6 +8,7 @@ function generateTable() {
         document.getElementById("datatable").outerHTML = "";
     }
 
+
     //get and calculate number of rows and columns
     var filasI = document.getElementById("states").value;
     var columnasI = document.getElementById("inputs").value;
