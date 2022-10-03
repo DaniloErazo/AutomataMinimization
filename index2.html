@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index2.css">
+  <title>Document</title>
+</head>
+<body>
+  <form>
+    <label for="">Estados del autómata:</label>
+    <input type="text" placeholder="A,B,C,...N" id="states" required minlength="1">
+    <br>
+    <label for="">Alfabeto del autómata:</label>
+    <input type="text" placeholder="a,b,c,...n" id="alphabet" required minlength="1">
+    <br>
+    <input type="button" value="Generar tabla de datos" onclick="generateTable()" />
+  </form>
+
+  <div id="dynamic_form"></div>
+
+  <main>
+    <table class="table">
+      <thead>
+        <tr id="tr"></tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+    </table>
+  </main>
+
+  <table class="table2">
+    <thead>
+      <tr id="tr2"></tr>
+    </thead>
+    <tbody id="tbody2"></tbody>
+  </table>
+
+  <br>
+  <button id="btnM" hidden="hidden" onclick="reduceMachine()">Reducir máquina</button>
+
+  <script src="index2.js"></script>
+</body>
+</html>
